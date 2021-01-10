@@ -21,7 +21,7 @@ public class Application {
         System.out.println("MySQL JDBC Driver Registered!");
         Connection connection = null;
         try {
-            String databaseUrl= "jdbc:mysql://localhost:3306/student?characterEncoding=utf8";
+            String databaseUrl= "jdbc:mysql://localhost:3306/student_cms_plusplus?characterEncoding=utf8";
             String user = "root";
             String pass = "1234";
             connection = DriverManager
@@ -31,19 +31,25 @@ public class Application {
             //Query DB
             List<Student> students = new ArrayList<>();
             Statement statement = connection.createStatement();
-            String query = "SELECT * FROM student.student;";
+
+            String addressIn = "Tp.Hồ Chí Minh";
+            int ageIn = 22;
+
+            String query = "SELECT * FROM student WHERE address='"+ addressIn +"' AND age > "+ ageIn +";";
+
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
-                String name = rs.getString(1);
-                String idNumber = rs.getString(2);
-                String address = rs.getString(3);
-                String phone = rs.getString(4);
-                String gender = rs.getString(5);
-                Integer age = rs.getInt(6);
-                System.out.println("name: " + name +", idNumber: " + idNumber);
-                Student st = new Student(name, idNumber, address, phone, gender, age);
-                students.add(st);
+                String id = rs.getString("id");
+                String name = rs.getString("name");
+                String mssv = rs.getString("mssv");
+                String password = rs.getString("password");
+                String phone = rs.getString("phone");
+                String address = rs.getString("address");
+                Integer age = rs.getInt("age");
+                System.out.println("name: " + name +", mssv: " + mssv);
             }
+
+            String phone = null;
 
             System.out.println(students);
 //            return students;
