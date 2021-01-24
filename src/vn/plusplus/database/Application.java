@@ -2,6 +2,7 @@ package vn.plusplus.database;
 
 import vn.plusplus.database.model.Laptop;
 import vn.plusplus.database.model.Student;
+import vn.plusplus.database.service.Counter;
 import vn.plusplus.database.service.LaptopService;
 
 import java.awt.*;
@@ -30,11 +31,16 @@ public class Application {
             System.out.println("SQL Connection to database established!");
 
             LaptopService laptopService = new LaptopService(connection);
-            List<Laptop> laptops = laptopService.findLaptopByPrice(null, 30000000f);
+            /*List<Laptop> laptops = laptopService.findLaptopByPrice(null, 30000000f);
             for(Laptop laptop : laptops){
                 System.out.println("Name: " + laptop.getName() + ", maker: " + laptop.getMaker() +", price: " + laptop.getPrice());
+            }*/
+
+            List<Counter> rs = laptopService.getCounterByMaker();
+            for(Counter c : rs){
+                System.out.println(c);
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
             System.out.println("Connection Failed! Check output console" + e);
             return;
         }
